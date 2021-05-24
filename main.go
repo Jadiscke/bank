@@ -28,8 +28,21 @@ func createAccount(name string) CheckingAccount {
 	}
 }
 
-func main() {
-	checkingAccount := createAccount("Vinicius")
+func (c *CheckingAccount) Withdraw(value float64) string {
+	canWithdraw := value <= c.balance && value > 0.0
 
-	fmt.Println(checkingAccount)
+	if canWithdraw {
+		c.balance -= value
+		return "Saque realizado com sucesso"
+	}
+
+	return "Saldo insuficiente"
+}
+
+func main() {
+	checkingAccount := createAccount("Silvia")
+
+	fmt.Println(checkingAccount.Withdraw(-200))
+
+	fmt.Println(checkingAccount.balance)
 }
